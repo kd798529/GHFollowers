@@ -14,6 +14,8 @@ class FollowerListVC: UIViewController {
     }
     
     var userName: String!
+    var followers: [Follower] = []
+    
     var collectionview: UICollectionView!
     
     //UICollectionViewDiffableDataSource is a new way to implement dynamic data to your UICollectionView
@@ -22,9 +24,10 @@ class FollowerListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
         configureViewController()
+        configureCollectionView()
         getFollowers()
+        configureDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +44,7 @@ class FollowerListVC: UIViewController {
     func configureCollectionView() {
         collectionview = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
         view.addSubview(collectionview)
-        collectionview.backgroundColor = .systemPink
+        collectionview.backgroundColor = .systemBackground
         collectionview.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
     }
     
@@ -51,7 +54,6 @@ class FollowerListVC: UIViewController {
         let width                       = view.bounds.width
         let padding: CGFloat            = 12
         let minimumItemSpacing: CGFloat = 10
-        
         let availableWidth              = width - (padding * 2) - (minimumItemSpacing * 2)
         let itemWidth                   = availableWidth / 3
         
@@ -69,6 +71,8 @@ class FollowerListVC: UIViewController {
             case .success(let followers):
                 print("followers.count = \(followers.count)")
                 print(followers)
+                self.followers = followers
+                self.updateData()
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Bad stuff happened", message: error.rawValue, buttonTitle: "Ok")
             }
@@ -76,9 +80,22 @@ class FollowerListVC: UIViewController {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionview, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionview, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
+            cell.set(follower: follower)
+            
+            return cell
         })
+    }
+    
+    func updateData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(followers)
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot, animatingDifferences: true)
+        }
+        
     }
 
     
