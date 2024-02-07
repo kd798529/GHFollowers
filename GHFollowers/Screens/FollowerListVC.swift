@@ -9,12 +9,60 @@ import UIKit
 
 class FollowerListVC: UIViewController {
     
+    enum Section {
+        case main
+    }
+    
     var userName: String!
+    var collectionview: UICollectionView!
+    
+    //UICollectionViewDiffableDataSource is a new way to implement dynamic data to your UICollectionView
+    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
+        configureViewController()
+        getFollowers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    
+    func configureCollectionView() {
+        collectionview = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
+        view.addSubview(collectionview)
+        collectionview.backgroundColor = .systemPink
+        collectionview.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
+    }
+    
+    
+    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
+        
+        let width                       = view.bounds.width
+        let padding: CGFloat            = 12
+        let minimumItemSpacing: CGFloat = 10
+        
+        let availableWidth              = width - (padding * 2) - (minimumItemSpacing * 2)
+        let itemWidth                   = availableWidth / 3
+        
+        let flowLayout                  = UICollectionViewFlowLayout()
+        flowLayout.sectionInset         = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        flowLayout.itemSize             = CGSize(width: itemWidth, height: itemWidth + 40)
+        
+        return flowLayout
+    }
+    
+    func getFollowers() {
         NetworkManager.shared.getFollowers(for: userName, page: 1) { result in
             
             switch result {
@@ -27,11 +75,11 @@ class FollowerListVC: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionview, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
+        })
     }
-    
 
     
 }
