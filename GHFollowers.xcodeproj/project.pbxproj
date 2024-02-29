@@ -28,6 +28,7 @@
 		EEE5514E2B4A93B1000E3381 /* GHFollowersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5514D2B4A93B1000E3381 /* GHFollowersUITestsLaunchTests.swift */; };
 		EEE5515B2B4C87B7000E3381 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5515A2B4C87B7000E3381 /* SearchVC.swift */; };
 		EEE5515D2B4C8827000E3381 /* FavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5515C2B4C8827000E3381 /* FavoritesListVC.swift */; };
+		EEF49E812B90440F009AD6D5 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF49E802B90440F009AD6D5 /* UIHelper.swift */; };
 		EEF5D0E32B4E796100FD5390 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF5D0E22B4E796100FD5390 /* GFButton.swift */; };
 		EEF5D0E52B4E7DDF00FD5390 /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF5D0E42B4E7DDF00FD5390 /* GFTextField.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		EEE5514D2B4A93B1000E3381 /* GHFollowersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EEE5515A2B4C87B7000E3381 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		EEE5515C2B4C8827000E3381 /* FavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVC.swift; sourceTree = "<group>"; };
+		EEF49E802B90440F009AD6D5 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		EEF5D0E22B4E796100FD5390 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 		EEF5D0E42B4E7DDF00FD5390 /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB743752B60F48D0039FE2C /* ErrorMessage.swift */,
+				EEF49E802B90440F009AD6D5 /* UIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				EEC4BEB52B564E03006D2725 /* GFTitleLabel.swift in Sources */,
 				EEC4BEB32B53AE2F006D2725 /* FollowerListVC.swift in Sources */,
 				EEB743762B60F48D0039FE2C /* ErrorMessage.swift in Sources */,
+				EEF49E812B90440F009AD6D5 /* UIHelper.swift in Sources */,
 				EEB477FA2B5D170600EDAE84 /* NetworkManager.swift in Sources */,
 				EEF5D0E52B4E7DDF00FD5390 /* GFTextField.swift in Sources */,
 				EEC4BEB72B564FF1006D2725 /* GFBodyLabel.swift in Sources */,
